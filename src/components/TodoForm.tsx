@@ -1,25 +1,25 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 
-export const TodoForm: React.FC = () => {
-  const [data, setData] = useState<string>("");
+interface TodoFormProps {
+  onAdd(title: string): void;
+}
 
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData(e.target.value);
-  };
+export const TodoForm: React.FC<TodoFormProps> = ({ onAdd }) => {
+  const ref = useRef<HTMLInputElement>(null);
 
   const keyPressHandler = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
-      console.log("data :>> ", data);
-      setData("");
+      onAdd(ref.current!.value);
+      ref.current!.value = "";
     }
   };
 
   return (
     <div className="input-field mt2">
       <input
-        onChange={changeHandler}
         type="text"
         id="title"
+        ref={ref}
         placeholder=" Enter the name of task"
         onKeyPress={keyPressHandler}
       />

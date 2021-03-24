@@ -1,17 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { Navbar } from "./components/Navbar";
-import { TodoForm } from "./components/TodoForm";
+import { TodosPage } from "./pages/TodosPage";
+import { Switch, BrowserRouter, Route } from "react-router-dom";
+import { AboutPage } from "./pages/AboutPage";
 
 const App: React.FC = () => {
-  // const [todoList, setTodoList] = useState();
-
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
       <div className="container">
-        <TodoForm />
+        <Switch>
+          <Route component={TodosPage} path="/" exact />
+          <Route component={AboutPage} path="/about" exact />
+        </Switch>
       </div>
-    </>
+    </BrowserRouter>
   );
 };
 
